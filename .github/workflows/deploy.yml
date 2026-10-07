@@ -12,9 +12,10 @@ jobs:
       - name: Connexion au VPS et déploiement
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: 185.157.244.202
-          username: etudiant
-          key: ${{ secrets.VPS_SSH_KEY }}
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: ${{ secrets.VPS_PORT }}
           script: |
             cd /var/www/webclients
             git pull https://${{ secrets.GITHUB_TOKEN }}@github.com/hillairet-enzo/WebClients.git main
