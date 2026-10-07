@@ -1,4 +1,4 @@
-name: Deploiement VPS
+name: Déploiement VPS
 
 on:
   push:
@@ -9,12 +9,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploiement via SSH
+      - name: Connexion au VPS et déploiement
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: 185.157.244.202
           username: etudiant
-          password: ${{ secrets.VPS_PASSWORD }}
+          key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd /var/www/webclients
             git pull origin main
