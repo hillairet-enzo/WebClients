@@ -1,0 +1,19 @@
+# Dépendances
+node_modules/
+
+# Dossiers de build Astro
+dist/
+.astro/
+
+# Variables d'environnement (Important pour le VPS)
+.env
+.env.*
+!.env.example
+
+# Base de données SQLite (Consigne de l'évaluation)
+data/*.db
+data/*.sqlite
+
+# Fichiers système
+.DS_Store
+Thumbs.db
