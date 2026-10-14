@@ -1,7 +1,21 @@
 ---
 import { getClients } from "../lib/db.js";
+import { SignOut } from "auth-astro/components";
+import { getSession } from "auth-astro/server";
 
-const clients = getClients();
+interface Client {
+  id: number;
+  name: string;
+  email: string;
+  address: string;
+  latitude: string | number;
+  longitude: string | number;
+}
+
+// Récupération de la session utilisateur Google
+const session = await getSession(Astro.request);
+
+const clients = getClients() as Client[];
 
 const clientCount = clients.length;
 
@@ -144,19 +158,20 @@ const locationsCount = clients.filter(
       font-size: 12px;
     }
 
-    .logout {
+    :global(.logout) {
       padding: 9px 14px;
       border: 1px solid var(--border);
       border-radius: 10px;
       background: white;
-
+      color: var(--text);
+      font-family: inherit;
       font-size: 13px;
       font-weight: 600;
-
+      cursor: pointer;
       transition: 0.2s;
     }
 
-    .logout:hover {
+    :global(.logout:hover) {
       background: #f8fafc;
       border-color: #d5dae3;
     }
@@ -469,7 +484,24 @@ const locationsCount = clients.filter(
       </div>
     </div>
 
+    <!-- NOUVEAU : Zone utilisateur avec bouton de déconnexion -->
+    <div class="user-area">
+      <div class="user-info">
+        <div class="user-name">
+          {session?.user?.name}
+        </div>
+        <div class="user-email">
+          {session?.user?.email}
+        </div>
+      </div>
+      
+      <SignOut class="logout">
+        Se déconnecter
+      </SignOut>
+    </div>
+
   </header>
+  
   <main>
 
     <!-- INTRODUCTION -->
